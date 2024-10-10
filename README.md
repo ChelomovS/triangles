@@ -4,7 +4,7 @@
 
 Расположить треугольники в пространстве можно **4** различными способами:
 
-images/triangles_and_planes.png
+![image](triangles_and_plane.png)
 
 # Алгоритм для исследования пересечения треугольников в 3D:
 
@@ -45,21 +45,21 @@ images/triangles_and_planes.png
 # Использование 
 
 ## Сборка проекта:
-'cmake -B build'
+```cmake -B build```
 
 ## Чтобы запустить программу:
-'cd build'
-'./triangles'
+```cd build```
+```./triangles```
 
 ## Чтобы запустить unit-тесты:
-'cd build'
-'cd tests'
-'./unit_test'
+```cd build```
+```cd tests```
+```./unit_test```
 
 ## end to end тесты:
-'cd tests'
-'cd end_to_end'
-'./end_to_end_testing.sh'
+```cd tests```
+```cd end_to_end```
+```./end_to_end_testing.sh```
 
-Чтобы cгенеровать 10 тестов:
-'python3 generate_triangles.py'
+## Чтобы cгенеровать 10 тестов:
+```python3 generate_triangles.py```
