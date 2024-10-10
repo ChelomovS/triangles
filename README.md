@@ -42,21 +42,21 @@ images/triangles_and_planes.png
 
 Такая оптимизация заметно уменьшает время поиска пересекающихся треугольников.
 
-## Использование 
+# Использование 
 
-# Сборка проекта:
+## Сборка проекта:
 'cmake -B build'
 
-# Чтобы запустить программу:
+## Чтобы запустить программу:
 'cd build'
 './triangles'
 
-# Чтобы запустить unit-тесты:
+## Чтобы запустить unit-тесты:
 'cd build'
 'cd tests'
 './unit_test'
 
-# end to end тесты:
+## end to end тесты:
 'cd tests'
 'cd end_to_end'
 './end_to_end_testing.sh'
