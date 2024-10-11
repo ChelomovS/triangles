@@ -46,9 +46,9 @@ void Octree::octree_t::inresect_triangles_inside_node(std::set<size_t>& result) 
                 if (iter_1->get_number() == iter_2->get_number())
                     continue;
 
-                if ((*iter_1).triangles_intersects_in_3d(*iter_2)) {
-                    result.insert((*iter_1).get_number());
-                    result.insert((*iter_2).get_number());
+                if (iter_1->triangles_intersects_in_3d(*iter_2)) {
+                    result.insert(iter_1->get_number());
+                    result.insert(iter_2->get_number());
                 }
             }
 
@@ -88,7 +88,7 @@ void Octree::intersect_triangles_with_children(std::set<size_t>& result, Triangl
                 for (auto list_iter = begin_of_child_triangle_list; list_iter != end_of_child_triangle_list; 
                      ++list_iter) {
                     if ((*list_iter).triangles_intersects_in_3d(triangle)) {
-                        result.insert((*list_iter).get_number());
+                        result.insert(list_iter->get_number());
                         result.insert(triangle.get_number());
                     }
                 }
