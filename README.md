@@ -50,7 +50,8 @@
 # Использование 
 
 ## Сборка проекта:
-```cmake -B build```
+```cmake -B build``` 
+```cmake --build build```
 
 ## Чтобы запустить программу:
 ```cd build```

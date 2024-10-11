@@ -43,7 +43,7 @@ void Octree::octree_t::inresect_triangles_inside_node(std::set<size_t>& result) 
 
         for (auto iter_1 = begin_of_triangle_list; iter_1 != end_of_triangle_list; ++iter_1) {
             for (auto iter_2 = iter_1; iter_2 != end_of_triangle_list; ++iter_2) {
-                if ((*iter_1).get_number() == (*iter_2).get_number())
+                if (iter_1->get_number() == iter_2->get_number())
                     continue;
 
                 if ((*iter_1).triangles_intersects_in_3d(*iter_2)) {
@@ -80,10 +80,13 @@ void Octree::intersect_triangles_with_children(std::set<size_t>& result, Triangl
 
         for (size_t number_of_child = 0; number_of_child < Octree::number_of_children; ++number_of_child) {
             if (current_node->valid_children_[number_of_child]) {
-                auto begin_of_child_triangle_list = current_node->children_[number_of_child]->triangles_in_space_.begin();
-                auto end_of_child_triangle_list   = current_node->children_[number_of_child]->triangles_in_space_.end();
+                auto begin_of_child_triangle_list = 
+                                        current_node->children_[number_of_child]->triangles_in_space_.begin();
+                auto end_of_child_triangle_list = 
+                                        current_node->children_[number_of_child]->triangles_in_space_.end();
 
-                for (auto list_iter = begin_of_child_triangle_list; list_iter != end_of_child_triangle_list; ++list_iter) {
+                for (auto list_iter = begin_of_child_triangle_list; list_iter != end_of_child_triangle_list; 
+                     ++list_iter) {
                     if ((*list_iter).triangles_intersects_in_3d(triangle)) {
                         result.insert((*list_iter).get_number());
                         result.insert(triangle.get_number());
@@ -139,7 +142,9 @@ void Octree::octree_t::subdivide(Octree::octree_node_t* root) {
 
             Point::point_t new_middle_point{middle_point_x, middle_point_y, middle_point_z};
 
-            current_node->children_[number_of_child] = new Octree::octree_node_t{new_middle_point, new_box_edges, current_node};
+            current_node->children_[number_of_child] = new Octree::octree_node_t{new_middle_point, 
+                                                                                 new_box_edges, 
+                                                                                 current_node};
         }
 
         auto begin_of_triangle_list = current_node->triangles_in_space_.begin();

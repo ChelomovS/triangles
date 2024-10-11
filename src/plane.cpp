@@ -40,13 +40,15 @@ Point::point_t Plane::plane_t::intersect_plane_and_segment(const Segment::segmen
 
     else
     {
-        coeff = -1 * (a_ * segment.get_beg_point().get_x() + 
-                      b_ * segment.get_beg_point().get_y() + 
-                      c_ * segment.get_beg_point().get_z() + d_) / denominator;
+        coeff = -(a_ * segment.get_beg_point().get_x() + 
+                  b_ * segment.get_beg_point().get_y() + 
+                  c_ * segment.get_beg_point().get_z() + d_) / denominator;
 
-        return Point::point_t(segment.get_beg_point().get_x() + coeff * segment.get_dir_vector().get_x() +
-                              segment.get_beg_point().get_y() + coeff * segment.get_dir_vector().get_y() +
-                              segment.get_beg_point().get_z() + coeff * segment.get_dir_vector().get_z());
+        Point::point_t intersection_point {segment.get_beg_point().get_x() + coeff * segment.get_dir_vector().get_x() +
+                                           segment.get_beg_point().get_y() + coeff * segment.get_dir_vector().get_y() +
+                                           segment.get_beg_point().get_z() + coeff * segment.get_dir_vector().get_z()};
+
+        return intersection_point;
     }
 }
 

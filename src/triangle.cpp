@@ -122,7 +122,7 @@ Compare::interval Triangle::triangle_t::calculate_intersection_interval(const Se
     }
 
     if (segment_is_found && (interval[0] > interval[1]))
-            std::swap(interval[0], interval[1]);
+        std::swap(interval[0], interval[1]);
 
     return interval;
 }
@@ -151,14 +151,14 @@ bool Triangle::triangle_t::triangles_intersects_in_3d(const Triangle::triangle_t
     dist_from_t2_points_to_t1_plane[2] = plane_.distance_between_point_and_plane(other_triangle.c_);
 
     Compare::interval first_interval = other_triangle.calculate_intersection_interval(line_of_plane_intersection, 
-                                                                                        dist_from_t2_points_to_t1_plane);
+                                                                                      dist_from_t2_points_to_t1_plane);
 
     dist_from_t1_points_to_t2_plane[0] = other_triangle.plane_.distance_between_point_and_plane(a_);
     dist_from_t1_points_to_t2_plane[1] = other_triangle.plane_.distance_between_point_and_plane(b_);
     dist_from_t1_points_to_t2_plane[2] = other_triangle.plane_.distance_between_point_and_plane(c_);
  
     Compare::interval second_interval = calculate_intersection_interval(line_of_plane_intersection, 
-                                                                       dist_from_t1_points_to_t2_plane);
+                                                                        dist_from_t1_points_to_t2_plane);
 
 
     return Compare::number_intervals_overloap(first_interval, second_interval);
