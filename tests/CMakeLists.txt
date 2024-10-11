@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.11)
 
 project(gtest)
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.11)
 
 if(NOT DEFINED INCLUDE_DIR)
     message(WARNING "INCLUDE_DIR is not defined.")
