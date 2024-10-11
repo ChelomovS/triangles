@@ -1,11 +1,11 @@
 #include <iostream>
 #include <list>
 #include <set>
+#include <algorithm>
 
 #include "octree.hpp"
 #include "triangle.hpp"
 #include "point.hpp"
-
 
 int main() {
     size_t number_of_triangles = 0;

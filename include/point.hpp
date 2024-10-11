@@ -1,6 +1,8 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 
+#include <cmath>
+
 #include "double_compare.hpp"
 
 namespace Point {

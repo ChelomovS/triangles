@@ -1,6 +1,8 @@
 #ifndef DOUBLE_COMPARE_HPP
 #define DOUBLE_COMPARE_HPP
 
+#include <array>
+
 namespace Compare {
     
 const double epsilon = 1.0e-10;
