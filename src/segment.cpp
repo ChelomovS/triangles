@@ -48,7 +48,9 @@ bool Segment::segment_t::segments_overloap(const Segment::segment_t& other_segme
         return false;
 
     if (other_segment.point_lies_on_segment(beg_point_) ||
-        other_segment.point_lies_on_segment(end_point_))
+        other_segment.point_lies_on_segment(end_point_) ||
+        point_lies_on_segment(other_segment.beg_point_) ||
+        point_lies_on_segment(other_segment.end_point_))
         return true;
 
     return false;

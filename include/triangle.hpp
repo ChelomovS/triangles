@@ -55,6 +55,7 @@ class triangle_t {
     Triangle_type get_type_of_triangle() const { return triangle_type_; }
 
     Triangle_type get_type_of_triangle_in_ctor() const;
+    bool triangle_intersect_segment(const Segment::segment_t& segment) const;
     bool check_degenerate_cases(const triangle_t& other_figure) const;
     Compare::interval calculate_intersection_interval(const Segment::segment_t& line,
                                                       const std::array<double, 3>& distance) const;

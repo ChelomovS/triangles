@@ -1,5 +1,6 @@
 #include <stack>
 #include <set>
+#include <iostream>
 
 #include "octree.hpp"
 #include "double_compare.hpp"

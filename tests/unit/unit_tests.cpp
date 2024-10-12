@@ -431,6 +431,18 @@ TEST(TRIANGLE_FUNCTIONS, triangle_intersection_20) {
     ASSERT_EQ(triangle_1.triangles_intersects_in_3d(triangle_2), false);
 }
 
+TEST(TRIANGLE_FUNCTIONS, triangle_intersection_21) {
+    Triangle::triangle_t triangle_1{{1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {0.0, 0.0, 1.0}};
+    Triangle::triangle_t triangle_2{{8.0, 8.0, 8.0}, {8.0, 8.0, 8.0}, {-10.0, 8.0, 8.0}};
+    ASSERT_EQ(triangle_1.triangles_intersects_in_3d(triangle_2), false);
+}
+
+TEST(TRIANGLE_FUNCTIONS, triangle_intersection_22) {
+    Triangle::triangle_t triangle_1{{0.25, 0.25, 2.0}, {0.25, 0.25, -2.0}, {0.25, 0.25, 1.0}};
+    Triangle::triangle_t triangle_2{{0.25, 0.25, 1.0}, {0.25, 0.25, -1.0}, {0.25, 0.25, 0.0}};
+    ASSERT_EQ(triangle_1.triangles_intersects_in_3d(triangle_2), true);
+}
+
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
 

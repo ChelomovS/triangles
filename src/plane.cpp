@@ -20,8 +20,9 @@ bool Plane::plane_t::planes_are_parallel(const Plane::plane_t& other_plane) cons
 }
 
 Point::point_t Plane::plane_t::intersect_plane_and_segment(const Segment::segment_t segment) const {
-    double denominator = segment.get_dir_vector().dot_product(normal_vector_);
+    Point::point_t invalid_point{NAN, NAN, NAN};
 
+    double denominator = segment.get_dir_vector().dot_product(normal_vector_);
     double coeff = 0;
 
     if (Compare::is_equal(denominator, 0)) {
@@ -31,22 +32,22 @@ Point::point_t Plane::plane_t::intersect_plane_and_segment(const Segment::segmen
                               d_, 0)) {
             return segment.get_beg_point();   
         }
-
         else {
-            Point::point_t invalid_point{NAN, NAN, NAN};
             return invalid_point;
         }
     }
 
-    else
-    {
-        coeff = -(a_ * segment.get_beg_point().get_x() + 
-                  b_ * segment.get_beg_point().get_y() + 
-                  c_ * segment.get_beg_point().get_z() + d_) / denominator;
+    else {
+        coeff = -1 * (a_ * segment.get_beg_point().get_x() + 
+                      b_ * segment.get_beg_point().get_y() + 
+                      c_ * segment.get_beg_point().get_z() + d_) / denominator;
 
-        Point::point_t intersection_point {segment.get_beg_point().get_x() + coeff * segment.get_dir_vector().get_x() +
-                                           segment.get_beg_point().get_y() + coeff * segment.get_dir_vector().get_y() +
-                                           segment.get_beg_point().get_z() + coeff * segment.get_dir_vector().get_z()};
+        Point::point_t intersection_point{segment.get_beg_point().get_x() + coeff * segment.get_dir_vector().get_x(),
+                                          segment.get_beg_point().get_y() + coeff * segment.get_dir_vector().get_y(),
+                                          segment.get_beg_point().get_z() + coeff * segment.get_dir_vector().get_z()};
+
+        if (!segment.point_lies_on_segment(intersection_point))
+            return invalid_point;
 
         return intersection_point;
     }

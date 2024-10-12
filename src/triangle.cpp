@@ -24,10 +24,27 @@ Triangle::Triangle_type Triangle::triangle_t::get_type_of_triangle_in_ctor() con
     if (a_.equal(b_) && b_.equal(c_))
         return Triangle_type::point;
 
-    if (segment_ab_.get_dir_vector().vectors_are_collinear(segment_ca_.get_dir_vector()))
+    if (segment_ab_.get_dir_vector().vectors_are_collinear(segment_ca_.get_dir_vector()) ||
+        segment_bc_.get_dir_vector().vectors_are_collinear(segment_ca_.get_dir_vector()))
         return Triangle_type::segment;
 
     return Triangle_type::triangle;
+}
+
+bool Triangle::triangle_t::triangle_intersect_segment(const Segment::segment_t& segment) const {
+    bool result = segment_ab_.segments_intersects(segment) ||
+                  segment_ca_.segments_intersects(segment) ||
+                  segment_bc_.segments_intersects(segment);
+
+    if (result) 
+        return result;
+
+    if (plane_.point_lies_on_plane(segment.get_beg_point()) && plane_.point_lies_on_plane(segment.get_end_point()))
+        return point_lies_inside_triangle(segment.get_beg_point()) || 
+               point_lies_inside_triangle(segment.get_beg_point());
+
+    else 
+        return point_lies_inside_triangle(plane_.intersect_plane_and_segment(segment));
 }
 
 bool Triangle::triangle_t::check_degenerate_cases(const Triangle::triangle_t& other_figure) const { 
@@ -45,21 +62,16 @@ bool Triangle::triangle_t::check_degenerate_cases(const Triangle::triangle_t& ot
 
     if (triangle_type_ == Triangle::Triangle_type::segment &&
         other_figure.triangle_type_ == Triangle::Triangle_type::segment)
-        return (segment_ab_.segments_intersects(other_figure.segment_ab_));
+        return (segment_ab_.segments_intersects(other_figure.segment_ab_) ||
+                segment_ab_.segments_overloap(other_figure.segment_ab_));
 
     if (triangle_type_ == Triangle::Triangle_type::triangle &&
         other_figure.triangle_type_ == Triangle::Triangle_type::segment)
-        return (segment_ab_.segments_intersects(other_figure.segment_ab_) ||
-                segment_ca_.segments_intersects(other_figure.segment_ab_) ||
-                segment_bc_.segments_intersects(other_figure.segment_ab_) ||
-                point_lies_inside_triangle(plane_.intersect_plane_and_segment(other_figure.segment_ab_)));
+        return triangle_intersect_segment(other_figure.segment_ab_);
 
     if (triangle_type_ == Triangle::Triangle_type::segment &&
         other_figure.triangle_type_ == Triangle::Triangle_type::triangle)
-        return (other_figure.segment_ab_.segments_intersects(segment_ab_) ||
-                other_figure.segment_ca_.segments_intersects(segment_ab_) ||
-                other_figure.segment_bc_.segments_intersects(segment_ab_) ||
-                other_figure.point_lies_inside_triangle(other_figure.plane_.intersect_plane_and_segment(segment_ab_)));
+        return other_figure.triangle_intersect_segment(segment_ab_);
 
     if (triangle_type_ == Triangle::Triangle_type::point &&
         other_figure.triangle_type_ == Triangle::Triangle_type::triangle)
@@ -130,7 +142,7 @@ Compare::interval Triangle::triangle_t::calculate_intersection_interval(const Se
 bool Triangle::triangle_t::triangles_intersects_in_3d(const Triangle::triangle_t& other_triangle) const {
     Triangle::Triangle_type type_of_first  = triangle_type_;
     Triangle::Triangle_type type_of_second = other_triangle.triangle_type_;
-
+    
     if (type_of_first  != Triangle::Triangle_type::triangle ||
         type_of_second != Triangle::Triangle_type::triangle)
         return check_degenerate_cases(other_triangle);
@@ -189,6 +201,9 @@ bool Triangle::triangle_t::segments_of_triangles_intersects(const Triangle::tria
 }
 
 bool Triangle::triangle_t::point_lies_inside_triangle(const Point::point_t& point) const {
+    if (!point.valid())
+        return false;
+
     // Works only if point into plane of triangle
     if (!plane_.point_lies_on_plane(point))
         return false;
