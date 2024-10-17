@@ -1,6 +1,5 @@
 #!/bin/bash
 
-shopt -s nullglob
 files=(*.in)
 
 if [ ${#files[@]} -eq 0 ]; then
