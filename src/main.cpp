@@ -13,7 +13,7 @@ int main() {
     std::cin >> number_of_triangles;
     if (!std::cin.good()) {
         std::cerr << "Error input" << std::endl;
-        return 1;
+        return -1;
     }
 
     std::list<Triangle::triangle_t> triangles{};
@@ -25,19 +25,27 @@ int main() {
     double max_y_coordinate = 0;
     double max_z_coordinate = 0;
 
-    for (size_t triangle_counter = 0; triangle_counter < number_of_triangles; ++triangle_counter) {
-        std::cin >> x_coordinate >> y_coordinate >> z_coordinate;
+    size_t triangle_counter = 0;
 
+    for (triangle_counter = 0; triangle_counter < number_of_triangles; ++triangle_counter) {
+        if (!(std::cin >> x_coordinate >> y_coordinate >> z_coordinate)) {
+            std::cerr << "Error reading point 1 for triangle " << triangle_counter << std::endl;
+            return -1;
+        }
         point_1 = {x_coordinate, y_coordinate, z_coordinate};
 
-        std::cin >> x_coordinate >> y_coordinate >> z_coordinate;
-
+        if (!(std::cin >> x_coordinate >> y_coordinate >> z_coordinate)) {
+            std::cerr << "Error reading point 2 for triangle " << triangle_counter << std::endl;
+            return -1;
+        }
         point_2 = {x_coordinate, y_coordinate, z_coordinate};
 
-        std::cin >> x_coordinate >> y_coordinate >> z_coordinate;
-
+        if (!(std::cin >> x_coordinate >> y_coordinate >> z_coordinate)) {
+            std::cerr << "Error reading point 3 for triangle " << triangle_counter << std::endl;
+            return -1;
+        }
         point_3 = {x_coordinate, y_coordinate, z_coordinate};
-    
+       
         Triangle::triangle_t new_triangle{point_1, point_2, point_3, triangle_counter};
         triangles.push_back(new_triangle);
 

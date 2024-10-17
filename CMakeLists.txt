@@ -14,9 +14,9 @@ add_executable(triangles ${SRC_FILES})
 
 target_include_directories(triangles PRIVATE ${INCLUDE_DIR})
 
-set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wextra -Wpedantic -g -O0 -DDEBUG 
-                           -Wmissing-declarations -Wcast-align 
-                           -Wunused -Wshadow -Wsign-conversion
+set(CMAKE_CXX_FLAGS_DEBUG "-Wall -Wextra -Wpedantic -g -O0 -DDEBUG \
+                           -Wmissing-declarations -Wcast-align \
+                           -Wunused -Wshadow -Wsign-conversion \
                            -fsanitize=address -fsanitize=undefined")
 
 set_target_properties(
