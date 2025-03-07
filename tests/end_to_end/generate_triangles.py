@@ -6,7 +6,7 @@ for test_number in range(tests_number):
     name_of_file = f"test_{test_number + 1:02}.in"
     
     with open(name_of_file, 'w') as file:
-        number_of_triangles = 10
+        number_of_triangles = 10000
 
         test_text = str(number_of_triangles) + "\n"
 
