@@ -1,0 +1,32 @@
+name: Triangles 
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: install deps
+      run: sudo apt-get install -y libgtest-dev cmake g++
+
+    - name: release build
+      run: |
+        cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release
+        cmake --build build/release
+        cd build/release
+        ctest --output-on-failure
+
+    - name: debug build
+      run: |
+        cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug
+        cmake --build build/debug
+        cd build/debug
+        ctest --output-on-failure
