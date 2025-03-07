@@ -14,6 +14,8 @@
 
 namespace Geom_objects {
 
+const size_t number_of_edges = 3;
+
 template <typename T>
 class AABB_t {
     private: 
