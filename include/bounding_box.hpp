@@ -14,17 +14,14 @@
 
 namespace Geom_objects {
 
-const size_t number_of_edges = 3;
-
 template <typename T>
 class AABB_t {
+    public:
+    static constexpr int number_of_edges = 3;
+
     private: 
     point_t<T> middle_point_;
     std::array<T, number_of_edges> box_edges_;
-
-    bool check_axis(const vector_t<T>& axis, const point_t<T>& a, const point_t<T>& b, const point_t<T>& c) const;
-
-    bool check_segment_intersection(const segment_t<T>& segment) const;
 
     public:
     AABB_t(const point_t<T>& middle_point, const std::array<T, number_of_edges>& box_edges)
@@ -35,13 +32,14 @@ class AABB_t {
     T get_box_x_edge() const;
     T get_box_y_edge() const;
     T get_box_z_edge() const;
-
     bool is_point_inside_box(const point_t<T>& point) const;
     bool is_polygon_inside_box(const polygon_t<T>& polygon) const;
     bool is_polygon_part_inside_box(const polygon_t<T>& polygon) const;
-
     bool check_triangle_intersection(const triangle_t<T>& triangle) const;
     void get_min_max(point_t<T>& min_pt, point_t<T>& max_pt) const;
+    bool check_axis(const vector_t<T>& axis, const point_t<T>& a, const point_t<T>& b, const point_t<T>& c) const;
+    bool check_segment_intersection(const segment_t<T>& segment) const;
+
 };
 
 template <typename T>
@@ -50,7 +48,7 @@ point_t<T> AABB_t<T>::get_middle_point() const {
 }
 
 template <typename T>
-std::array<T, number_of_edges> AABB_t<T>::get_box_edges() const { 
+std::array<T, AABB_t<T>::number_of_edges> AABB_t<T>::get_box_edges() const { 
     return box_edges_; 
 }
 

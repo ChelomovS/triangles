@@ -9,7 +9,6 @@
 #include "octree.hpp"
 
 int main() {
-
     size_t number_of_polygons = 0;
 
     std::cin >> number_of_polygons;
@@ -54,9 +53,9 @@ int main() {
         max_z_coordinate = std::max({max_z_coordinate, point_1.get_z(), point_2.get_z(), point_3.get_z()});
     }   
 
-    std::array<double, Geom_objects::number_of_edges> box_edges{std::abs(max_x_coordinate),
-                                                                std::abs(max_y_coordinate), 
-                                                                std::abs(max_z_coordinate)};
+    std::array<double, Geom_objects::AABB_t<double>::number_of_edges> box_edges{std::abs(max_x_coordinate),
+                                                                                std::abs(max_y_coordinate), 
+                                                                                std::abs(max_z_coordinate)};
 
     Geom_objects::point_t<double> middle_of_space{0.0, 0.0, 0.0};
     Geom_objects::AABB_t<double> bounding_box{middle_of_space, box_edges};
@@ -65,7 +64,7 @@ int main() {
 
     std::set<size_t> result{};
     
-    octree.intersect_polygons_inside_node(octree.get_root(), result);
+    octree.get_number_of_intersections(result);
 
     for (size_t number : result) 
         std::cout << number << std::endl;
